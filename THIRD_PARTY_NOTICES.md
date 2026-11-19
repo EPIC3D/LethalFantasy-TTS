@@ -24,15 +24,15 @@ Nothing listed here is redistributed in this repository unless stated otherwise.
 
 ## Optional Kokoro add-on (`server/`)
 
-The live TTS add-on runs the Kokoro model locally. When it is packaged as a standalone download,
-the package must include the license texts of everything it bundles.
+Only the bridge script `server/tts_server.py` is part of this repository. Kokoro and its
+dependencies are installed separately by the user (`pip install kokoro`) from their own sources.
 
 | Component | Use | License |
 |---|---|---|
 | [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) (hexgrad) | TTS model weights and voices | Apache-2.0 |
 | [kokoro](https://github.com/hexgrad/kokoro) | Python inference library | Apache-2.0 |
 | [misaki](https://github.com/hexgrad/misaki) | grapheme-to-phoneme for Kokoro | Apache-2.0 |
-| [eSpeak NG](https://github.com/espeak-ng/espeak-ng) | phonemizer fallback used by misaki for unknown words | **GPL-3.0** – if bundled, ship its license and point to its source |
+| [eSpeak NG](https://github.com/espeak-ng/espeak-ng) | phonemizer fallback used by misaki for unknown words | GPL-3.0 |
 | [PyTorch](https://pytorch.org/) | inference runtime | BSD-3-Clause |
 | [NumPy](https://numpy.org/) | arrays | BSD-3-Clause |
 | [python-soundfile](https://github.com/bastibe/python-soundfile) / libsndfile | audio I/O | BSD-3-Clause / LGPL-2.1 |
