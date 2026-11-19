@@ -45,9 +45,22 @@ Only English is supported for now.
 2. `dotnet build src/LethalFantasyTTS -c Release`
 3. Output: `src/LethalFantasyTTS/bin/Release/netstandard2.1/LethalFantasyTTS.dll`.
 
+## Game content and copyright
+
+- All dialogue text and other literary and creative content of **LethalFantasy** – the lines, story,
+  character names and characters – is the intellectual property of the game's author, **LadyAlice**.
+- **None of this content is part of this repository**, and it is **not** licensed under this
+  repository's MIT license. The MIT license covers only the source code written for this mod.
+- The plugin reads the dialogue from the player's own copy of the game at runtime; it does not
+  contain, reproduce or redistribute the game's text.
+- Voice packs are spoken renditions of the author's lines and therefore derived from the author's
+  work. They are not included here, are not covered by the MIT license, and are only published with
+  the author's permission. Translation keys (e.g. `AKIPO_DIALOGUE_...`) are used as file names only
+  to identify which line a file belongs to.
+
 ## Licenses and credits
 
-- Code: MIT (see `LICENSE`).
+- Code: MIT (see `LICENSE`) – the code only, not the game's content (see above).
 - Unofficial fan mod for **LethalFantasy** by LadyAlice – not affiliated with or endorsed by the game's
   author. No game files are included; the game's text and characters belong to their author.
 - Third-party software and models (BepInEx, HarmonyX, Kokoro, …) are **not included** – they are

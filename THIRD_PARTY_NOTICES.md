@@ -11,8 +11,12 @@ Nothing listed here is redistributed in this repository unless stated otherwise.
 - The game's assemblies (`Assembly-CSharp.dll`, Unity modules) are only **referenced at build time**
   from the user's own game installation (`GamePath.props`) and are **never included** in this
   repository or in any release.
-- All dialogue text, character names and characters belong to the game's author. Voice packs that
-  speak the game's lines are distributed separately and only with the author's permission.
+- All dialogue text and other literary/creative content (lines, story, character names and
+  characters) is the intellectual property of the game's author. It is **not** contained in this
+  repository and **not** covered by its MIT license; the plugin only reads it from the player's own
+  game copy at runtime.
+- Voice packs are spoken renditions derived from the author's text. They are distributed separately,
+  are not covered by the MIT license, and are only published with the author's permission.
 
 ## Playback plugin (`src/`)
 
