@@ -1,8 +1,17 @@
 # Changelog
 
-## 0.4.0 – voice pack layout, first release
+## 0.5.0 – first release (pre-release): voice pack player, text follows the voice
 
-Tested against LethalFantasy beta 1.0.2 (English).
+Tested against LethalFantasy beta 1.0.3 (English).
+
+- `[Text] SyncToVoice` (default on): while a voice line plays, the dialogue text is revealed in step with
+  the voice (finishes with it, never jumps back, independent of the text speed setting) and auto-advance
+  waits until the voice has finished. Clicking still skips.
+- `[Mouth] Sync` (optional, default off): the speaker's mouth follows the voice loudness (closed in pauses,
+  wider on loud syllables) until the voice ends, instead of the game's random mouth that stops when the
+  text is shown; `ShapesPerSecond` sets how often the shape may change.
+
+Also in this release (developed as the unreleased 0.4.0):
 
 - New voice pack layout: `voices/en/<AKIPO|RED|BLUE>/<Weblate KEY>[__he|she|they].ogg` – one folder per
   speaker, file name = the line's translation key, so single lines can be swapped by hand. Older flat

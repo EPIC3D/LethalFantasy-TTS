@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace LethalFantasyTTS
 {
-    [BepInPlugin(Guid, "Epicopy + Copilot LethalFantasy TTS", "0.4.0")]
+    [BepInPlugin(Guid, "Epicopy + Copilot LethalFantasy TTS", "0.5.0")]
     public class Plugin : BaseUnityPlugin
     {
         public const string Guid = "com.epicopy.copilot.lethalfantasytts";

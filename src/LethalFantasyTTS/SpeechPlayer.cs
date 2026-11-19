@@ -161,6 +161,8 @@ namespace LethalFantasyTTS
         private float _basePitch = 1f;
         private bool _wantedNarration;
         private float _wantedSince;
+        private string _wantedKey;
+        private int _wantedChars;
         private float _playAt = -1f; // realtime when the delayed (speed of sound) clip should start
 
         private void Awake()
@@ -341,6 +343,8 @@ namespace LethalFantasyTTS
             _wantedCharacter = character;
             _wantedNarration = narration;
             _wantedSince = Time.realtimeSinceStartup;
+            _wantedKey = key;
+            _wantedChars = System.Text.RegularExpressions.Regex.Replace(text ?? "", "<[^>]*>", "").Length;
 
             string pack = narration ? null : FindPackFile(character, text, key);
             if (pack != null)
@@ -441,9 +445,135 @@ namespace LethalFantasyTTS
             }
         }
 
+        // ---- Mouth: imitation driven by the audio loudness (MouthSync) ----
+        private bool _mouthDriving;
+        private GiantessExpressionManager _mouthMgr;
+        private float _mouthNext, _mouthPeak;
+        private readonly float[] _mouthBuf = new float[512];
+        private readonly System.Random _mouthRnd = new System.Random();
+
+        private void UpdateMouth()
+        {
+            bool speaking = Plugin.Cfg.MouthSync.Value && _source.isPlaying && _source.clip != null &&
+                            _speaker != null && _speaker.expressionManager != null;
+            if (!speaking)
+            {
+                // Voice finished but the same line's text is still being revealed (slow text speed):
+                // keep the mouth closed instead of letting the game flap it silently.
+                if (_mouthDriving && LineStillShowing())
+                {
+                    _mouthMgr.mouthOverride.ClearDialogueMovement();
+                    var d = DialogueManager.Instance;
+                    if (d != null) d.ignoreMouth = true;
+                    return;
+                }
+                if (_mouthDriving) StopMouth();
+                return;
+            }
+            if (!_mouthDriving)
+            {
+                _mouthDriving = true;
+                _mouthMgr = _speaker.expressionManager;
+                _mouthPeak = 0.05f;
+            }
+            var dm = DialogueManager.Instance;
+            if (dm != null) dm.ignoreMouth = true; // stop the game's random text-reveal mouth while we drive it
+            if (Time.unscaledTime < _mouthNext) return;
+            _mouthNext = Time.unscaledTime + 1f / Mathf.Max(4f, Plugin.Cfg.MouthRate.Value);
+
+            // Loudness of the clip at the play position (not of the 3D output, so distance doesn't close the mouth).
+            float rms;
+            try
+            {
+                var clip = _source.clip;
+                int pos = Mathf.Clamp(_source.timeSamples, 0, Mathf.Max(0, clip.samples - _mouthBuf.Length / clip.channels));
+                clip.GetData(_mouthBuf, pos);
+                double sum = 0;
+                for (int i = 0; i < _mouthBuf.Length; i++) sum += _mouthBuf[i] * _mouthBuf[i];
+                rms = (float)Math.Sqrt(sum / _mouthBuf.Length);
+            }
+            catch (Exception)
+            {
+                _source.GetOutputData(_mouthBuf, 0);
+                double sum = 0;
+                for (int i = 0; i < _mouthBuf.Length; i++) sum += _mouthBuf[i] * _mouthBuf[i];
+                rms = (float)Math.Sqrt(sum / _mouthBuf.Length);
+            }
+            _mouthPeak = Mathf.Max(_mouthPeak * 0.995f, rms);
+            float level = rms / Mathf.Max(0.02f, _mouthPeak);
+
+            var mouth = _mouthMgr.mouthOverride;
+            if (level < 0.15f)
+                mouth.ClearDialogueMovement(); // pause -> the expression's own (closed) mouth
+            else if (level > 0.65f)
+                mouth.SetDialogueMovement(_mouthRnd.Next(2) == 0 ? ExpressionEnum.MouthA : ExpressionEnum.MouthO);
+            else if (level > 0.35f)
+                mouth.SetDialogueMovement(_mouthRnd.Next(2) == 0 ? ExpressionEnum.MouthE : ExpressionEnum.MouthO);
+            else
+                mouth.SetDialogueMovement(_mouthRnd.Next(2) == 0 ? ExpressionEnum.MouthI : ExpressionEnum.MouthU);
+        }
+
+        private bool LineStillShowing()
+        {
+            var dm = DialogueManager.Instance;
+            if (dm == null || _mouthMgr == null || string.IsNullOrEmpty(_wantedKey)) return false;
+            return dm.IsInProgress && dm.lastExpression.text == _wantedKey;
+        }
+
+        // ---- Text pace follows the voice (TextSyncToVoice) ----
+        // The game shows floor(stateTime * charSpeed * TEXT_SPEED_SCALER) characters. Instead of changing the
+        // speed (that either can't slow down or makes the text jump back), we set stateTime so the visible
+        // characters follow the voice's progress – monotonic, independent of the player's text speed setting.
+        private string _syncKey;
+        private float _syncStartShown, _syncShown;
+
+        private void UpdateTextSync()
+        {
+            var dm = DialogueManager.Instance;
+            if (dm == null || !Plugin.Cfg.TextSyncToVoice.Value || _wantedNarration || string.IsNullOrEmpty(_wantedKey) ||
+                dm.lastExpression.text != _wantedKey || dm.state != DialogueManager.DialogueState.Hold || _source.clip == null)
+                return;
+            float rate = Mathf.Max(0.01f, dm.charSpeed * DialogueManager.TEXT_SPEED_SCALER);
+            if (_syncKey != _wantedKey)
+            {
+                if (!_source.isPlaying) return; // voice not started yet: the game's own pace until it does
+                _syncKey = _wantedKey;
+                _syncStartShown = Mathf.Min(_wantedChars, dm.stateTime * rate);
+                _syncShown = _syncStartShown;
+            }
+            if (dm.finishedText)
+            {
+                if (_source.isPlaying) dm.stateTime = 0f; // hold auto-advance while the voice still speaks
+                return;
+            }
+            float target;
+            if (_source.isPlaying)
+            {
+                float frac = Mathf.Clamp01(_source.time / Mathf.Max(0.1f, _source.clip.length - 0.2f));
+                target = _syncStartShown + (_wantedChars - _syncStartShown) * frac;
+            }
+            else
+                target = _wantedChars + 1f; // voice finished: show the rest now
+            _syncShown = Mathf.Max(_syncShown, target); // never hide characters already shown
+            dm.stateTime = (_syncShown + 0.5f) / rate;
+        }
+
+        private void StopMouth()
+        {
+            _mouthDriving = false;
+            if (_mouthMgr != null) _mouthMgr.mouthOverride.ClearDialogueMovement();
+            _mouthMgr = null;
+            var dm = DialogueManager.Instance;
+            if (dm != null) dm.ignoreMouth = false;
+        }
+
         private void LateUpdate()
         {
             var cfg = Plugin.Cfg;
+            try { UpdateTextSync(); }
+            catch (Exception ex) { if (cfg.DebugLog.Value) Plugin.Log.LogWarning("[TTS] text sync: " + ex.Message); }
+            try { UpdateMouth(); }
+            catch (Exception ex) { if (cfg.DebugLog.Value) Plugin.Log.LogWarning("[TTS] mouth: " + ex.Message); }
             if (_follow == null)
             {
                 _lowPass.cutoffFrequency = 22000f;

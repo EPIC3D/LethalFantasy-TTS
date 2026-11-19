@@ -56,6 +56,9 @@ namespace LethalFantasyTTS
         public readonly ConfigEntry<float> TelepathyAboveHeight;
         public readonly ConfigEntry<float> TelepathyFade;
         public readonly ConfigEntry<float> TelepathyEthereal;
+        public readonly ConfigEntry<bool> MouthSync;
+        public readonly ConfigEntry<bool> TextSyncToVoice;
+        public readonly ConfigEntry<float> MouthRate;
 
         // Only English voices for now; other languages are skipped.
         private readonly Dictionary<string, VoiceSettings> _englishVoices = new Dictionary<string, VoiceSettings>();
@@ -138,6 +141,15 @@ namespace LethalFantasyTTS
             TelepathyEthereal = cfg.Bind("Telepathy", "Ethereal", 0.5f, new ConfigDescription(
                 "How dreamlike the telepathic voice sounds (soft reverb and chorus), 0 = dry.",
                 new AcceptableValueRange<float>(0f, 1f)));
+
+            TextSyncToVoice = cfg.Bind("Text", "SyncToVoice", true,
+                "While a voice line plays, the dialogue text is revealed at the voice's pace (it finishes with the " +
+                "voice) and auto-advance waits until the voice has finished. Clicking still skips.");
+            MouthSync = cfg.Bind("Mouth", "Sync", false,
+                "While a voice line plays, the speaker's mouth follows the audio loudness (closed in pauses, " +
+                "wider on loud syllables) instead of the game's random mouth that stops when the text is shown.");
+            MouthRate = cfg.Bind("Mouth", "ShapesPerSecond", 11f, new ConfigDescription(
+                "How often the mouth shape may change per second.", new AcceptableValueRange<float>(4f, 20f)));
 
             Bind(cfg, "Akipo", "af_bella*0.7+af_jessica*0.3", "a", 1.0f, 1.09f, 0.95f);  // FilePitch 0.95: user, 2026-11-18
             Bind(cfg, "RedTwin", "af_bella*0.6+af_sarah*0.4", "a", 1.08f, 1.0f);
