@@ -1,0 +1,40 @@
+# Build output
+bin/
+obj/
+dist/
+
+# Machine-specific game path
+GamePath.props
+
+# IDE / OS
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+Thumbs.db
+Desktop.ini
+
+# Never commit game or BepInEx binaries
+*.dll
+*.pdb
+
+# Local tools and decompiled game code
+.tools/
+.decompiled/
+
+# Worker remote-update secret and backups
+worker/update_token.txt
+worker/backup/
+worker/__pycache__/
+
+# Audio and Python caches never belong in git
+*.wav
+*.ogg
+__pycache__/
+
+# Client repo only: the voice-pack renderer, render worker and dev notes stay local
+tools/
+worker/
+CLAUDE.md
+CLAUDE.local.md

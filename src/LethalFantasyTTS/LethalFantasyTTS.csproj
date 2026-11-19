@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    The game folder is machine-specific and is NOT committed.
+    Copy GamePath.props.example (repo root) to GamePath.props and set LethalFantasyDir,
+    or pass it on the command line: dotnet build -p:LethalFantasyDir="D:\Games\LethalFantasy"
+    The folder must contain BepInEx 5 (BepInEx\core) and LethalFantasy_Data\Managed.
+  -->
+  <Import Project="..\..\GamePath.props" Condition="Exists('..\..\GamePath.props')" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>LethalFantasyTTS</AssemblyName>
+    <RootNamespace>LethalFantasyTTS</RootNamespace>
+    <Version>0.1.0</Version>
+    <Product>LethalFantasy TTS</Product>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ManagedDir>$(LethalFantasyDir)\LethalFantasy_Data\Managed</ManagedDir>
+    <BepInExCoreDir>$(LethalFantasyDir)\BepInEx\core</BepInExCoreDir>
+  </PropertyGroup>
+
+  <Target Name="CheckGamePath" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(LethalFantasyDir)' == ''"
+           Text="LethalFantasyDir is not set. Copy GamePath.props.example to GamePath.props and set your game folder." />
+    <Error Condition="!Exists('$(ManagedDir)\Assembly-CSharp.dll')"
+           Text="Assembly-CSharp.dll not found in '$(ManagedDir)'. Check LethalFantasyDir." />
+    <Error Condition="!Exists('$(BepInExCoreDir)\BepInEx.dll')"
+           Text="BepInEx.dll not found in '$(BepInExCoreDir)'. Install BepInEx 5 into the game folder first." />
+  </Target>
+
+  <ItemGroup>
+    <!-- All references come from the local game install and are never copied to the output. -->
+    <Reference Include="BepInEx" HintPath="$(BepInExCoreDir)\BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(BepInExCoreDir)\0Harmony.dll" Private="false" />
+    <Reference Include="Assembly-CSharp" HintPath="$(ManagedDir)\Assembly-CSharp.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(ManagedDir)\UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(ManagedDir)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.AudioModule" HintPath="$(ManagedDir)\UnityEngine.AudioModule.dll" Private="false" />
+    <Reference Include="UnityEngine.UnityWebRequestModule" HintPath="$(ManagedDir)\UnityEngine.UnityWebRequestModule.dll" Private="false" />
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule" HintPath="$(ManagedDir)\UnityEngine.UnityWebRequestAudioModule.dll" Private="false" />
+  </ItemGroup>
+
+</Project>

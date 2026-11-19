@@ -1,0 +1,9 @@
+<Project>
+  <!--
+    Copy this file to GamePath.props (ignored by git) and point it at your
+    LethalFantasy install that has BepInEx 5 installed.
+  -->
+  <PropertyGroup>
+    <LethalFantasyDir>D:\Games\LethalFantasy</LethalFantasyDir>
+  </PropertyGroup>
+</Project>
