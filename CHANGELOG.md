@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.4.0 – voice pack layout, first release
+
+Tested against LethalFantasy beta 1.0.2 (English).
+
+- New voice pack layout: `voices/en/<AKIPO|RED|BLUE>/<Weblate KEY>[__he|she|they].ogg` – one folder per
+  speaker, file name = the line's translation key, so single lines can be swapped by hand. Older flat
+  and hash-named packs still work as fallback.
+- Per-character `FilePitch` for the voice files (`[Voice.English.<Character>]`); Akipo defaults to 0.95.
+- `UseServer` now defaults to **false** (the live Kokoro server is an optional add-on) and `ReadStory`
+  to **false** (narration is not voiced). Existing configs keep their values.
+- Recommended install: `BepInEx/plugins/LethalFantasyTTS/` with the voice packs in its `voices/` folder.
+
 ## 0.3.0 – voice packs, telepathy, atmosphere
 
 Tested against LethalFantasy beta 1.0.2 (English).

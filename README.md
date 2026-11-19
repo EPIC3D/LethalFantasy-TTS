@@ -14,8 +14,10 @@ no BepInEx and no voice files are included.
 
 1. Install **BepInEx 5** (x64, Mono) into the game folder:
    <https://github.com/BepInEx/BepInEx/releases> – start the game once so BepInEx creates its folders.
-2. Copy `LethalFantasyTTS.dll` into `<game>\BepInEx\plugins\`.
-3. Put the voice packs (separate download) into `<game>\BepInEx\plugins\voices\en\`:
+2. Unzip the plugin release into the game folder – it creates
+   `<game>\BepInEx\plugins\LethalFantasyTTS\LethalFantasyTTS.dll`.
+3. Unzip the voice packs (separate downloads, one per character) into the game folder too; they go to
+   `<game>\BepInEx\plugins\LethalFantasyTTS\voices\en\`:
    ```
    voices/en/AKIPO/<KEY>.ogg
    voices/en/RED/<KEY>.ogg

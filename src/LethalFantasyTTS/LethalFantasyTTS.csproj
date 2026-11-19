@@ -15,7 +15,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>LethalFantasyTTS</AssemblyName>
     <RootNamespace>LethalFantasyTTS</RootNamespace>
-    <Version>0.1.0</Version>
+    <Version>0.4.0</Version>
     <Product>LethalFantasy TTS</Product>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
