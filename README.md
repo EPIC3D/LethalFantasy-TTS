@@ -26,6 +26,8 @@ no BepInEx and no voice files are included.
    Files are named after the game's translation key (as on the game's Weblate), with
    `__he` / `__she` / `__they` for lines that depend on the player's identity. Any single file can
    be replaced by your own recording or render.
+   **Make your own voices:** the plugin is only a player – see [`docs/VOICE_PACKS.md`](docs/VOICE_PACKS.md)
+   for the naming scheme, audio format and how to export the line list from your own game.
 4. Settings: `<game>\BepInEx\config\com.epicopy.copilot.lethalfantasytts.cfg` (created on first
    start) – volume, 3D/effects, per-character `FilePitch` (e.g. `0.95` = slightly deeper).
 
