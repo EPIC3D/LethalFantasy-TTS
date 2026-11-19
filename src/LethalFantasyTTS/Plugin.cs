@@ -17,10 +17,21 @@ namespace LethalFantasyTTS
         internal static Settings Cfg;
         private Harmony _harmony;
 
+        /// <summary>Short config name BepInEx/config/lf-tts.cfg instead of the GUID-based one; the GUID stays the
+        /// same. An existing GUID-named config is copied over once, so players keep their settings.</summary>
+        private static ConfigFile OpenConfig()
+        {
+            string path = System.IO.Path.Combine(Paths.ConfigPath, "lf-tts.cfg");
+            string old = System.IO.Path.Combine(Paths.ConfigPath, Guid + ".cfg");
+            if (!System.IO.File.Exists(path) && System.IO.File.Exists(old))
+                System.IO.File.Copy(old, path);
+            return new ConfigFile(path, true);
+        }
+
         private void Awake()
         {
             Log = Logger;
-            Cfg = new Settings(Config);
+            Cfg = new Settings(OpenConfig());
 
             SceneManager.activeSceneChanged += (_, __) =>
             {

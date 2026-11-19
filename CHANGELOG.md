@@ -11,6 +11,9 @@ Tested against LethalFantasy beta 1.0.3 (English).
   wider on loud syllables) until the voice ends, instead of the game's random mouth that stops when the
   text is shown; `ShapesPerSecond` sets how often the shape may change.
 
+- Settings file renamed to `BepInEx/config/lf-tts.cfg` (an existing
+  `com.epicopy.copilot.lethalfantasytts.cfg` is copied over on first start).
+
 Also in this release (developed as the unreleased 0.4.0):
 
 - New voice pack layout: `voices/en/<AKIPO|RED|BLUE>/<Weblate KEY>[__he|she|they].ogg` – one folder per

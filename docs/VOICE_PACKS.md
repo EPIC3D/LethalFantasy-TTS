@@ -53,7 +53,7 @@ Example conversion: `ffmpeg -i line.wav -ac 1 -c:a libvorbis -q:a 6 KEY.ogg`
 The game's text belongs to its author and is not distributed with this mod, but you can export the
 line list from **your own copy** of the game:
 
-1. In the plugin's `.cfg` set `[Developer] ExportLines = true` and start the game once.
+1. In `BepInEx/config/lf-tts.cfg` set `[Developer] ExportLines = true` and start the game once.
 2. It writes to `<game>/BepInEx/LethalFantasyTTS/`:
    - `english_lines.jsonl` – every key and its English text (`{"key": ..., "text": ...}`; raw text
      with `{they}` placeholders and rich-text tags such as `<i>`),

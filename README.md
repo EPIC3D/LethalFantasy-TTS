@@ -28,7 +28,7 @@ no BepInEx and no voice files are included.
    be replaced by your own recording or render.
    **Make your own voices:** the plugin is only a player – see [`docs/VOICE_PACKS.md`](docs/VOICE_PACKS.md)
    for the naming scheme, audio format and how to export the line list from your own game.
-4. Settings: `<game>\BepInEx\config\com.epicopy.copilot.lethalfantasytts.cfg` (created on first
+4. Settings: `<game>\BepInEx\config\lf-tts.cfg` (created on first
    start) – volume, 3D/effects, per-character `FilePitch` (e.g. `0.95` = slightly deeper).
 
 ## Optional: live Kokoro TTS for lines without a voice file
@@ -38,7 +38,7 @@ Kokoro is installed separately; this repo only contains the small HTTP bridge (`
 1. Python 3.10–3.12, then: `pip install kokoro soundfile` – see <https://github.com/hexgrad/kokoro>
    (model: <https://huggingface.co/hexgrad/Kokoro-82M>, downloaded automatically on first use).
 2. Start the bridge: `python server/tts_server.py` (listens on `http://127.0.0.1:5123`, CPU by default).
-3. In the plugin's `.cfg`: `[General] UseServer = true`. Per-character Kokoro voices and blends are set
+3. In `BepInEx\config\lf-tts.cfg`: `[General] UseServer = true`. Per-character Kokoro voices and blends are set
    in `[Voice.English.<Character>]` (`Voice = af_bella*0.7+af_jessica*0.3`, `Speed`, `Pitch`).
 
 Only English is supported for now.
