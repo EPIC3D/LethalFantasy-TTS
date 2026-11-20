@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 
 namespace LethalFantasyTTS
 {
-    [BepInPlugin(Guid, "Epicopy + Copilot LethalFantasy TTS", "0.5.0")]
+    [BepInPlugin(Guid, "Epicopy + Claude LethalFantasy TTS", "0.5.0")]
     public class Plugin : BaseUnityPlugin
     {
-        public const string Guid = "com.epicopy.copilot.lethalfantasytts";
+        public const string Guid = "com.epicopy.claude.lethalfantasytts";
+        private const string LegacyCfg = "com.epicopy.copilot.lethalfantasytts.cfg"; // pre-0.5.0 config name
 
         internal static ManualLogSource Log;
         internal static Settings Cfg;
@@ -22,7 +23,7 @@ namespace LethalFantasyTTS
         private static ConfigFile OpenConfig()
         {
             string path = System.IO.Path.Combine(Paths.ConfigPath, "lf-tts.cfg");
-            string old = System.IO.Path.Combine(Paths.ConfigPath, Guid + ".cfg");
+            string old = System.IO.Path.Combine(Paths.ConfigPath, LegacyCfg);
             if (!System.IO.File.Exists(path) && System.IO.File.Exists(old))
                 System.IO.File.Copy(old, path);
             return new ConfigFile(path, true);
