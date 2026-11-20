@@ -77,3 +77,12 @@ Only English is supported for now.
   author. No game files are included; the game's text and characters belong to their author.
 - Third-party software and models (BepInEx, HarmonyX, Kokoro, …) are **not included** – they are
   installed separately from their own sources. Credits and licenses: [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
+## Support
+
+If you enjoy the game, please support its author, LadyAlice, first:
+<https://www.patreon.com/cw/LadyAliceR18>.
+
+If you'd also like to support this mod:
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E6Z42AUOBQ)
