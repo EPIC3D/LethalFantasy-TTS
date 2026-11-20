@@ -5,7 +5,8 @@ voice files at the speaking character's mouth (3D, with size-based deepening, re
 indoor muffling). An optional local Kokoro TTS server can read lines that have no voice file.
 
 **LethalFantasy** is made by **LadyAlice**. This is an unofficial fan-made mod and is not affiliated
-with or endorsed by the game's creator.
+with or endorsed by the game's creator. Get the game and support its author on Patreon:
+<https://www.patreon.com/cw/LadyAliceR18>.
 
 This repository contains **only the plugin source and the Kokoro integration script**. No game files,
 no BepInEx and no voice files are included.
