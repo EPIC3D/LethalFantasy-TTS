@@ -4,9 +4,7 @@
 
 Tested against LethalFantasy beta 1.0.3 (English).
 
-- `[Text] SyncToVoice` (default on): while a voice line plays, the dialogue text is revealed in step with
-  the voice (finishes with it, never jumps back, independent of the text speed setting) and auto-advance
-  waits until the voice has finished. Clicking still skips.
+
 - Hold-right-click skip works with voices: holding the skip button no longer resets the skip bar, and
   the voice stops when a dialogue is skipped or closed (`EndDialogue`, or the box closed while still speaking).
 - Voices in every game language: the plugin looks in `voices/<language>/` (`hu`, `ja`, `zh`, `es`, `fr`,
