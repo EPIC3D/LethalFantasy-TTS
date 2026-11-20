@@ -17,6 +17,15 @@ Tested against LethalFantasy beta 1.0.3 (English).
   wider on loud syllables) until the voice ends, instead of the game's random mouth that stops when the
   text is shown; `ShapesPerSecond` sets how often the shape may change.
 
+Voice packs (separate downloads, `LICENSE-VOICES.md`; unzip into the game folder):
+
+- `Voices-Akipo` (3598 lines), `Voices-Red` (1447), `Voices-Blue` (1429) – tech-demo voices (Chatterbox,
+  no per-line acting direction), `Voices-All` = all of them plus the audiobook.
+- `Voices-MemoryOrb-Audiobook` – the 12 Memory Orb pages: male narrator, the narrator's friend, the Twins
+  in their own voices, with the game's own sound effects (footsteps, destruction, growth, rumble, mana).
+- `Voices-Akipo-Interactions-Acting-WIP` – optional work-in-progress demo of the acted version (1017 Akipo
+  interaction lines, replaces those files in `AKIPO/`; `FilePitch = 0.95` recommended).
+
 - Plugin file renamed to `LFTTS.dll` (remove an old `LethalFantasyTTS.dll` from `BepInEx/plugins`).
 - Settings file renamed to `BepInEx/config/lf-tts.cfg` (an existing
   `com.epicopy.copilot.lethalfantasytts.cfg` is copied over on first start).

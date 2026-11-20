@@ -27,6 +27,9 @@ no BepInEx and no voice files are included.
    Files are named after the game's translation key (as on the game's Weblate), with
    `__he` / `__she` / `__they` for lines that depend on the player's identity. Any single file can
    be replaced by your own recording or render.
+   Release downloads: `Voices-Akipo`, `Voices-Red`, `Voices-Blue`, `Voices-MemoryOrb-Audiobook`
+   (the Memory Orb story, read aloud when you open a page) or `Voices-All` (all four), plus the optional
+   `Voices-Akipo-Interactions-Acting-WIP`.
    **Note:** the default voice packs are a **tech demo without acting direction**: there was no budget
    for the directed ("acted") version. The optional *Akipo Interactions – Acting* pack is a
    **work-in-progress demo** of that acted version (1017 Akipo interaction lines). It replaces files in
