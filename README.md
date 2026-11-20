@@ -60,10 +60,12 @@ Only English is supported for now.
 
 ## Coming later: voice pack generator
 
-The voice packs were made with a separate offline **renderer** (scene-aware acting directions, local
-open TTS models, voice consistency and quality checks, game sound effects for the audiobook). It is not
-part of this repository yet; it will be published separately once it is ready, so that anyone with a
-suitable GPU can render their own voices for LethalFantasy.
+The voice packs were made with a separate offline **renderer** that runs local open TTS models and checks
+every line automatically (all words spoken, voice consistency, audio quality). The tech-demo packs use
+per-emotion voice settings only; the acting demo adds scene-aware acting directions per line, and the
+audiobook mixes in the game's sound effects. The renderer is not part of this repository yet; it will be
+published separately once it is ready, so that anyone with a suitable GPU can render their own voices
+for LethalFantasy.
 
 ## Build
 
