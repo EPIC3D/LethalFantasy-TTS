@@ -9,6 +9,9 @@ Tested against LethalFantasy beta 1.0.3 (English).
   waits until the voice has finished. Clicking still skips.
 - Hold-right-click skip works with voices: holding the skip button no longer resets the skip bar, and
   the voice stops when a dialogue is skipped or closed (`EndDialogue`, or the box closed while still speaking).
+- Voices in every game language: the plugin looks in `voices/<language>/` (`hu`, `ja`, `zh`, `es`, `fr`,
+  `pt-BR`, `ru`) first and falls back to the English pack, so the characters speak (in English) whatever
+  language the game shows. Packs for other languages can be added per folder later.
 - Memory Orb audiobook: the pages you read play `voices/en/STORY/<page key>.ogg` (narrator + character
   voices), stopping when you turn the page or close the orb (`[Story] ReadMemoryOrb`).
 - Voice packs have their own license (`LICENSE-VOICES.md`): free for LethalFantasy only, no selling, no use

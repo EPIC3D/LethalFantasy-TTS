@@ -130,7 +130,7 @@ namespace LethalFantasyTTS
             if (narration && !cfg.ReadStory.Value) return null;
 
             var voice = cfg.GetVoice(Localization.SelectedLanguage, character, narration);
-            if (voice == null) return null;
+            if (voice == null) return ""; // no live voice for this language: voice files only (English fallback)
             return "{\"text\":" + Json(text) + ",\"voice\":" + Json(voice.Voice.Value) +
                 ",\"lang\":" + Json(voice.Lang.Value) +
                 ",\"speed\":" + voice.Speed.Value.ToString(CultureInfo.InvariantCulture) +
@@ -142,7 +142,7 @@ namespace LethalFantasyTTS
         {
             if (!Plugin.Cfg.UseServer.Value) return;
             string body = BuildBody(character, type, text, out bool narration);
-            if (body == null || (!narration && FindPackFile(character, text, key) != null)) return;
+            if (string.IsNullOrEmpty(body) || (!narration && FindPackFile(character, text, key) != null)) return;
             Request(body, urgent: false);
         }
 
@@ -156,7 +156,6 @@ namespace LethalFantasyTTS
         private Transform _follow;
         private Giantess _speaker;
         private bool _pausedByMenu;
-        private LocalizationLanguage _lastSkippedLanguage = (LocalizationLanguage)(-1);
 
         private Entry _wanted;
         private CharacterType _wantedCharacter;
@@ -248,13 +247,47 @@ namespace LethalFantasyTTS
         private static string FindPackFile(CharacterType character, string text, string key)
         {
             var cfg = Plugin.Cfg;
-            if (!cfg.UseVoicePack.Value || character == CharacterType.None ||
-                Localization.SelectedLanguage != LocalizationLanguage.English)
+            if (!cfg.UseVoicePack.Value || character == CharacterType.None)
                 return null;
-            string dir = cfg.VoicePackDir.Value;
-            if (string.IsNullOrEmpty(dir))
-                dir = Path.Combine(Path.GetDirectoryName(typeof(Plugin).Assembly.Location), "voices");
-            string langDir = Path.Combine(dir, "en");
+            // Files are named after the translation key, so the same line exists in every language:
+            // voices/<game language>/ first, then the English pack (voice in every language by default).
+            foreach (string lang in LanguageFolders())
+            {
+                string found = FindPackFileIn(Path.Combine(VoicesDir(), lang), character, text, key, lang == "en");
+                if (found != null) return found;
+            }
+            return null;
+        }
+
+        private static string VoicesDir()
+        {
+            string dir = Plugin.Cfg.VoicePackDir.Value;
+            return string.IsNullOrEmpty(dir)
+                ? Path.Combine(Path.GetDirectoryName(typeof(Plugin).Assembly.Location), "voices") : dir;
+        }
+
+        /// <summary>Folder of the game language (ISO code), then "en".</summary>
+        private static IEnumerable<string> LanguageFolders()
+        {
+            string code;
+            switch (Localization.SelectedLanguage)
+            {
+                case LocalizationLanguage.Japanese: code = "ja"; break;
+                case LocalizationLanguage.Chinese: code = "zh"; break;
+                case LocalizationLanguage.Spanish: code = "es"; break;
+                case LocalizationLanguage.French: code = "fr"; break;
+                case LocalizationLanguage.PortugueseBrazil: code = "pt-BR"; break;
+                case LocalizationLanguage.Russian: code = "ru"; break;
+                case LocalizationLanguage.Hungarian: code = "hu"; break;
+                default: code = "en"; break;
+            }
+            if (code != "en") yield return code;
+            yield return "en";
+        }
+
+        private static string FindPackFileIn(string langDir, CharacterType character, string text, string key, bool hashNames)
+        {
+            if (!Directory.Exists(langDir)) return null;
             if (!string.IsNullOrEmpty(key))
             {
                 // The game's own identity word for {they}: he / she / they.
@@ -276,6 +309,7 @@ namespace LethalFantasyTTS
                     if (File.Exists(p)) return p;
                 }
             }
+            if (!hashNames) return null; // legacy hash names = English text only
             string id;
             using (var sha = System.Security.Cryptography.SHA1.Create())
             {
@@ -314,13 +348,15 @@ namespace LethalFantasyTTS
         public void PlayStory(string key)
         {
             if (!Plugin.Cfg.Enabled.Value || !Plugin.Cfg.ReadMemoryOrb.Value || string.IsNullOrEmpty(key)) return;
-            string dir = Plugin.Cfg.VoicePackDir.Value;
-            if (string.IsNullOrEmpty(dir))
-                dir = Path.Combine(Path.GetDirectoryName(typeof(Plugin).Assembly.Location), "voices");
-            string path = Path.Combine(Path.Combine(Path.Combine(dir, "en"), "STORY"), key + ".ogg");
+            string path = null;
+            foreach (string lang in LanguageFolders())  // the page's language first, then English
+            {
+                string p = Path.Combine(Path.Combine(Path.Combine(VoicesDir(), lang), "STORY"), key + ".ogg");
+                if (File.Exists(p)) { path = p; break; }
+            }
             Stop();
             _storyActive = true;
-            if (!File.Exists(path))
+            if (path == null)
             {
                 if (Plugin.Cfg.DebugLog.Value) Plugin.Log.LogInfo("[TTS] no story audio: " + key);
                 return;
@@ -352,17 +388,7 @@ namespace LethalFantasyTTS
             int packSeq = ++_packSeq;
             _loading = false;
             string body = BuildBody(character, type, text, out bool narration);
-            if (body == null)
-            {
-                var language = Localization.SelectedLanguage;
-                if (Plugin.Cfg.Enabled.Value && Plugin.Cfg.GetVoice(language, character, narration) == null &&
-                    _lastSkippedLanguage != language)
-                {
-                    _lastSkippedLanguage = language;
-                    Plugin.Log.LogWarning("No TTS voice configured for language " + language + "; lines are not read.");
-                }
-                return;
-            }
+            if (body == null) return;
 
             _source.Stop(); // a new line replaces whatever is being said
             _playAt = -1f;
@@ -376,7 +402,7 @@ namespace LethalFantasyTTS
             string pack = narration ? null : FindPackFile(character, text, key);
             if (pack != null)
                 StartCoroutine(LoadPack(pack, packSeq));
-            else if (Plugin.Cfg.UseServer.Value)
+            else if (Plugin.Cfg.UseServer.Value && body.Length > 0)
                 _wanted = Request(body, urgent: true);
             else if (Plugin.Cfg.DebugLog.Value)
                 Plugin.Log.LogInfo("[TTS] not in voice pack: " + character + "|" + text);
@@ -447,7 +473,7 @@ namespace LethalFantasyTTS
             _speaker = null;
             if (!_wantedNarration) FindMouth(_wantedCharacter, out _follow, out _speaker);
             // Per-character pitch for the voice files (the live server applies its own Pitch).
-            var voice = cfg.GetVoice(Localization.SelectedLanguage, _wantedCharacter, _wantedNarration);
+            var voice = cfg.GetFileVoice(_wantedCharacter, _wantedNarration);
             _basePitch = !origin.StartsWith("server") && voice != null
                 ? Mathf.Clamp(voice.FilePitch.Value, 0.7f, 1.3f) : 1f;
 

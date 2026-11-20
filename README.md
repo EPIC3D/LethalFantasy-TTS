@@ -56,7 +56,9 @@ Kokoro is installed separately; this repo only contains the small HTTP bridge (`
 3. In `BepInEx\config\lf-tts.cfg`: `[General] UseServer = true`. Per-character Kokoro voices and blends are set
    in `[Voice.English.<Character>]` (`Voice = af_bella*0.7+af_jessica*0.3`, `Speed`, `Pitch`).
 
-Only English is supported for now.
+Voice packs are English only for now, but they play in **every game language**: the plugin looks in
+`voices/<language>/` (e.g. `voices/hu/`) first and falls back to `voices/en/`. The live Kokoro server reads
+English only.
 
 ## Coming later: voice pack generator
 

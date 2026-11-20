@@ -185,5 +185,10 @@ namespace LethalFantasyTTS
             string who = narration || character == CharacterType.None ? "Narrator" : character.ToString();
             return _englishVoices.TryGetValue(who, out var v) ? v : null;
         }
+
+        /// <summary>Settings for playing voice files (FilePitch): the English section is used for every game
+        /// language, because the packs fall back to the English audio.</summary>
+        public VoiceSettings GetFileVoice(CharacterType character, bool narration) =>
+            GetVoice(LocalizationLanguage.English, character, narration);
     }
 }
