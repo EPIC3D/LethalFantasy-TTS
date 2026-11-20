@@ -37,7 +37,14 @@ Kokoro is installed separately; this repo only contains the small HTTP bridge (`
 
 1. Python 3.10–3.12, then: `pip install kokoro soundfile` – see <https://github.com/hexgrad/kokoro>
    (model: <https://huggingface.co/hexgrad/Kokoro-82M>, downloaded automatically on first use).
-2. Start the bridge: `python server/tts_server.py` (listens on `http://127.0.0.1:5123`, CPU by default).
+2. Start the bridge: `python server/tts_server.py` (listens on `http://127.0.0.1:5123`).
+   - **CPU (default, recommended):** about 1 s per line and steady; the plugin prefetches the next
+     lines, so most of them play without waiting.
+   - **GPU (optional):** `python server/tts_server.py --device cuda` – needs an NVIDIA GPU and the CUDA
+     build of PyTorch (`pip install kokoro` installs the CPU build; get the CUDA one from
+     <https://pytorch.org/get-started/locally/>). Next to the game the GPU is often *slower and less
+     even* than the CPU, because both compete for the graphics card.
+   - Other options: `--port 5123`.
 3. In `BepInEx\config\lf-tts.cfg`: `[General] UseServer = true`. Per-character Kokoro voices and blends are set
    in `[Voice.English.<Character>]` (`Voice = af_bella*0.7+af_jessica*0.3`, `Speed`, `Pitch`).
 
