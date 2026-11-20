@@ -145,7 +145,7 @@ namespace LethalFantasyTTS
             TextSyncToVoice = cfg.Bind("Text", "SyncToVoice", true,
                 "While a voice line plays, the dialogue text is revealed at the voice's pace (it finishes with the " +
                 "voice) and auto-advance waits until the voice has finished. Clicking still skips.");
-            MouthSync = cfg.Bind("Mouth", "Sync", false,
+            MouthSync = cfg.Bind("Mouth", "Sync", true,
                 "While a voice line plays, the speaker's mouth follows the audio loudness (closed in pauses, " +
                 "wider on loud syllables) instead of the game's random mouth that stops when the text is shown.");
             MouthRate = cfg.Bind("Mouth", "ShapesPerSecond", 11f, new ConfigDescription(

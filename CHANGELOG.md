@@ -9,7 +9,7 @@ Tested against LethalFantasy beta 1.0.3 (English).
   waits until the voice has finished. Clicking still skips.
 - Hold-right-click skip works with voices: holding the skip button no longer resets the skip bar, and
   the voice stops when a dialogue is skipped or closed (`EndDialogue`, or the box closed while still speaking).
-- `[Mouth] Sync` (optional, default off): the speaker's mouth follows the voice loudness (closed in pauses,
+- `[Mouth] Sync` (default on): the speaker's mouth follows the voice loudness (closed in pauses,
   wider on loud syllables) until the voice ends, instead of the game's random mouth that stops when the
   text is shown; `ShapesPerSecond` sets how often the shape may change.
 
