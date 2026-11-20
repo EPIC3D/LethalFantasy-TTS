@@ -59,6 +59,9 @@ Kokoro is installed separately; this repo only contains the small HTTP bridge (`
 Voice packs are English only for now, but they play in **every game language**: the plugin looks in
 `voices/<language>/` (e.g. `voices/hu/`) first and falls back to `voices/en/`. The live Kokoro server reads
 English only.
+**Want voices in your language?** See [Voice packs in other languages](docs/VOICE_PACKS.md#voice-packs-in-other-languages)
+– get the translated lines from the game's Weblate (<https://lethalfantasy-translation.com/projects/lethal-fantasy/#languages>),
+record or render them, and drop the files into `voices/<language>/`.
 
 ## Coming later: voice pack generator
 
