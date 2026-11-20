@@ -80,7 +80,9 @@ suitable GPU can render their own voices for LethalFantasy.
   work. They are published **with the game author's permission** as separate downloads, are **not**
   covered by the MIT license, and have their own license: [`LICENSE-VOICES.md`](LICENSE-VOICES.md)
   (free to use and share for LethalFantasy only; no selling, no use in other games or media, cloning or AI training
-  for personal use only). Translation keys (e.g. `AKIPO_DIALOGUE_...`) are used as file names only
+  for personal use only). The **audiobook pack** (Memory Orb story) also contains **sound effects taken
+  from the game** (footsteps, destruction, growth, rumble, mana); they belong to the game's author or
+  their licensors, are not covered by any license of this project and may only be used with LethalFantasy. Translation keys (e.g. `AKIPO_DIALOGUE_...`) are used as file names only
   to identify which line a file belongs to.
 
 ## Licenses and credits

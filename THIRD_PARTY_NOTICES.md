@@ -17,6 +17,9 @@ Nothing listed here is redistributed in this repository unless stated otherwise.
   game copy at runtime.
 - Voice packs are spoken renditions derived from the author's text. They are distributed separately
   with the author's permission, are not covered by the MIT license, and use `LICENSE-VOICES.md`.
+- The audiobook voice pack (Memory Orb story) mixes **sound effects extracted from the game** under the
+  narration. They remain the property of the game's author or their licensors, are not licensed by this
+  project, and are included only for use with LethalFantasy, with the author's permission.
 
 ## Playback plugin (`src/`)
 

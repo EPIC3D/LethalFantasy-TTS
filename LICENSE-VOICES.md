@@ -10,6 +10,11 @@ The plugin's source code is licensed separately under the MIT License (`LICENSE`
 - **The spoken text and the characters** – all dialogue, story, character names and characters of
   *LethalFantasy* – remain the intellectual property of the game's author, **LadyAlice**. This license
   grants no rights to the game's text or characters.
+- **Sound effects in the audiobook pack** (the Memory Orb story, `voices/en/STORY/`): the footsteps,
+  destruction, growth, rumble and mana sounds mixed under the narration are **taken from the game
+  *LethalFantasy*** and belong to the game's author or their licensors. They are **not** covered by this
+  license; they are used only inside this LethalFantasy mod, with the game author's permission, and the
+  same restrictions apply to them as to the game itself (no reuse outside LethalFantasy).
 - The voice packs are published as a mod for *LethalFantasy* **with the permission of the game's author**.
 
 ## You may
