@@ -121,7 +121,9 @@ namespace LethalFantasyTTS
         private static string BuildBody(CharacterType character, DialogueType type, string text, out bool narration)
         {
             var cfg = Plugin.Cfg;
-            narration = type == DialogueType.StoryDialogue || type == DialogueType.StoryPoise;
+            // StoryPoise = narration; StoryDialogue spoken by a character (e.g. Akipo in the nightgown story) is speech.
+            narration = type == DialogueType.StoryPoise ||
+                        (type == DialogueType.StoryDialogue && character == CharacterType.None);
             if (!cfg.Enabled.Value || string.IsNullOrWhiteSpace(text)) return null;
             if (type == DialogueType.Normal && !cfg.ReadNormal.Value) return null;
             if (type == DialogueType.Followup && !cfg.ReadFollowup.Value) return null;

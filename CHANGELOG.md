@@ -22,6 +22,8 @@ Also in this release (developed as the unreleased 0.4.0):
   and hash-named packs still work as fallback.
 - Per-character `FilePitch` for the voice files (`[Voice.English.<Character>]`, default 1.0; e.g. 0.95 =
   slightly deeper, recommended for the optional Akipo acting pack).
+- Story lines spoken by a character (`StoryDialogue`, e.g. Akipo in the nightgown story) are voiced;
+  only real narration (`StoryPoise`) follows `ReadStory`.
 - `UseServer` now defaults to **false** (the live Kokoro server is an optional add-on) and `ReadStory`
   to **false** (narration is not voiced). Existing configs keep their values.
 - Recommended install: `BepInEx/plugins/LethalFantasyTTS/` with the voice packs in its `voices/` folder.

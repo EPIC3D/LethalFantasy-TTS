@@ -82,7 +82,7 @@ namespace LethalFantasyTTS
 
             ReadNormal = cfg.Bind("Lines", "ReadNormal", true, "Read normal dialogue lines.");
             ReadFollowup = cfg.Bind("Lines", "ReadFollowup", true, "Read follow-up replies of the second character.");
-            ReadStory = cfg.Bind("Lines", "ReadStory", false, "Read story narration (StoryDialogue / StoryPoise).");
+            ReadStory = cfg.Bind("Lines", "ReadStory", false, "Read story narration (StoryPoise lines). Story lines spoken by a character are always voiced.");
 
             SpatialBlend = cfg.Bind("Spatial", "SpatialBlend", 1.0f, new ConfigDescription(
                 "0 = plain stereo, 1 = fully 3D from the speaker's head.", new AcceptableValueRange<float>(0f, 1f)));
