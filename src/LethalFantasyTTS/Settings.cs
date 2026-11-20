@@ -151,7 +151,7 @@ namespace LethalFantasyTTS
             MouthRate = cfg.Bind("Mouth", "ShapesPerSecond", 11f, new ConfigDescription(
                 "How often the mouth shape may change per second.", new AcceptableValueRange<float>(4f, 20f)));
 
-            Bind(cfg, "Akipo", "af_bella*0.7+af_jessica*0.3", "a", 1.0f, 1.09f, 0.95f);  // FilePitch 0.95: user, 2026-11-18
+            Bind(cfg, "Akipo", "af_bella*0.7+af_jessica*0.3", "a", 1.0f, 1.09f);  // FilePitch 1.0 for the Chatterbox pack (0.95 suits the v4 acting pack)
             Bind(cfg, "RedTwin", "af_bella*0.6+af_sarah*0.4", "a", 1.08f, 1.0f);
             Bind(cfg, "BlueTwin", "af_bella*0.8+bf_alice*0.2", "a", 1.0f, 1.0f);
             Bind(cfg, "Narrator", "af_heart", "a", 1.0f, 1.0f);
