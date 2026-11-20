@@ -27,6 +27,10 @@ no BepInEx and no voice files are included.
    Files are named after the game's translation key (as on the game's Weblate), with
    `__he` / `__she` / `__they` for lines that depend on the player's identity. Any single file can
    be replaced by your own recording or render.
+   **Note:** the default voice packs are a **tech demo without acting direction**: there was no budget
+   for the directed ("acted") version. The optional *Akipo Interactions – Acting* pack is a
+   **work-in-progress demo** of that acted version (1017 Akipo interaction lines). It replaces files in
+   `AKIPO/`, and `FilePitch = 0.95` is recommended for it.
    **Make your own voices:** the plugin is only a player – see [`docs/VOICE_PACKS.md`](docs/VOICE_PACKS.md)
    for the naming scheme, audio format and how to export the line list from your own game.
 4. Settings: `<game>\BepInEx\config\lf-tts.cfg` (created on first
