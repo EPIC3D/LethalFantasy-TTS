@@ -11,6 +11,7 @@ Tested against LethalFantasy beta 1.0.3 (English).
   wider on loud syllables) until the voice ends, instead of the game's random mouth that stops when the
   text is shown; `ShapesPerSecond` sets how often the shape may change.
 
+- Plugin file renamed to `LFTTS.dll` (remove an old `LethalFantasyTTS.dll` from `BepInEx/plugins`).
 - Settings file renamed to `BepInEx/config/lf-tts.cfg` (an existing
   `com.epicopy.copilot.lethalfantasytts.cfg` is copied over on first start).
 

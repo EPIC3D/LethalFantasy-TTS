@@ -15,7 +15,7 @@ no BepInEx and no voice files are included.
 1. Install **BepInEx 5** (x64, Mono) into the game folder:
    <https://github.com/BepInEx/BepInEx/releases> – start the game once so BepInEx creates its folders.
 2. Unzip the plugin release into the game folder – it creates
-   `<game>\BepInEx\plugins\LethalFantasyTTS\LethalFantasyTTS.dll`.
+   `<game>\BepInEx\plugins\LethalFantasyTTS\LFTTS.dll`.
 3. Unzip the voice packs (separate downloads, one per character) into the game folder too; they go to
    `<game>\BepInEx\plugins\LethalFantasyTTS\voices\en\`:
    ```
@@ -47,7 +47,7 @@ Only English is supported for now.
 
 1. Copy `GamePath.props.example` to `GamePath.props` and set your game folder (with BepInEx 5 installed).
 2. `dotnet build src/LethalFantasyTTS -c Release`
-3. Output: `src/LethalFantasyTTS/bin/Release/netstandard2.1/LethalFantasyTTS.dll`.
+3. Output: `src/LethalFantasyTTS/bin/Release/netstandard2.1/LFTTS.dll`.
 
 ## Game content and copyright
 
