@@ -57,6 +57,7 @@ namespace LethalFantasyTTS
         public readonly ConfigEntry<float> TelepathyFade;
         public readonly ConfigEntry<float> TelepathyEthereal;
         public readonly ConfigEntry<bool> MouthSync;
+        public readonly ConfigEntry<bool> ReadMemoryOrb;
         public readonly ConfigEntry<bool> TextSyncToVoice;
         public readonly ConfigEntry<float> MouthRate;
 
@@ -145,6 +146,8 @@ namespace LethalFantasyTTS
             TextSyncToVoice = cfg.Bind("Text", "SyncToVoice", true,
                 "While a voice line plays, the dialogue text is revealed at the voice's pace (it finishes with the " +
                 "voice) and auto-advance waits until the voice has finished. Clicking still skips.");
+            ReadMemoryOrb = cfg.Bind("Story", "ReadMemoryOrb", true,
+                "Play the audiobook for Memory Orb pages (voices/en/STORY/<page key>.ogg) while you read them.");
             MouthSync = cfg.Bind("Mouth", "Sync", true,
                 "While a voice line plays, the speaker's mouth follows the audio loudness (closed in pauses, " +
                 "wider on loud syllables) instead of the game's random mouth that stops when the text is shown.");

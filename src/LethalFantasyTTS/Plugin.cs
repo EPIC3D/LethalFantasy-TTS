@@ -107,6 +107,25 @@ namespace LethalFantasyTTS
         }
     }
 
+    // Memory Orb: UpdateDialogue runs when the orb opens and on every page turn (keys[index] = page key).
+    [HarmonyPatch(typeof(MemoryManager), "UpdateDialogue")]
+    internal static class MemoryPage
+    {
+        private static readonly System.Reflection.FieldInfo KeysField = AccessTools.Field(typeof(MemoryManager), "keys");
+
+        [HarmonyPostfix]
+        private static void Postfix(MemoryManager __instance)
+        {
+            try
+            {
+                var keys = KeysField?.GetValue(__instance) as string[];
+                if (keys == null || __instance.index < 0 || __instance.index >= keys.Length) return;
+                SpeechPlayer.Ensure().PlayStory(keys[__instance.index]);
+            }
+            catch (System.Exception ex) { Plugin.Log.LogError("[TTS] Memory Orb page: " + ex); }
+        }
+    }
+
     // EndDialogue clears the whole queue and closes the box at once – this is what "hold right click to
     // skip" (and the end of a scripted scene) does, so the voice must stop too.
     [HarmonyPatch(typeof(DialogueManager), nameof(DialogueManager.EndDialogue))]

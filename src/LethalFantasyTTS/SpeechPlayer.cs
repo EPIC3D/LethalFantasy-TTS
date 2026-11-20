@@ -308,6 +308,31 @@ namespace LethalFantasyTTS
             }
         }
 
+        // ---- Memory Orb audiobook: voices/en/STORY/<page key>.ogg, plain stereo, stops when the orb closes ----
+        private bool _storyActive;
+
+        public void PlayStory(string key)
+        {
+            if (!Plugin.Cfg.Enabled.Value || !Plugin.Cfg.ReadMemoryOrb.Value || string.IsNullOrEmpty(key)) return;
+            string dir = Plugin.Cfg.VoicePackDir.Value;
+            if (string.IsNullOrEmpty(dir))
+                dir = Path.Combine(Path.GetDirectoryName(typeof(Plugin).Assembly.Location), "voices");
+            string path = Path.Combine(Path.Combine(Path.Combine(dir, "en"), "STORY"), key + ".ogg");
+            Stop();
+            _storyActive = true;
+            if (!File.Exists(path))
+            {
+                if (Plugin.Cfg.DebugLog.Value) Plugin.Log.LogInfo("[TTS] no story audio: " + key);
+                return;
+            }
+            _wantedCharacter = CharacterType.None;
+            _wantedNarration = true;  // no speaker in the world -> not positional
+            _wantedKey = key;
+            _wantedChars = 0;
+            _wantedSince = Time.realtimeSinceStartup;
+            StartCoroutine(LoadPack(path, ++_packSeq));
+        }
+
         public void Speak(CharacterType character, DialogueType type, string text, string key)
         {
             // Queue mode: let the current line finish; keep only the newest waiting line.
@@ -370,6 +395,7 @@ namespace LethalFantasyTTS
 
         private void Update()
         {
+            if (_storyActive && !MemoryManager.IsActive) { _storyActive = false; Stop(); }
             bool paused = PauseMenu.IsPaused;
             if (paused != _pausedByMenu)
             {

@@ -66,8 +66,10 @@ Only English is supported for now.
 - The plugin reads the dialogue from the player's own copy of the game at runtime; it does not
   contain, reproduce or redistribute the game's text.
 - Voice packs are spoken renditions of the author's lines and therefore derived from the author's
-  work. They are not included here, are not covered by the MIT license, and are only published with
-  the author's permission. Translation keys (e.g. `AKIPO_DIALOGUE_...`) are used as file names only
+  work. They are published **with the game author's permission** as separate downloads, are **not**
+  covered by the MIT license, and have their own license: [`LICENSE-VOICES.md`](LICENSE-VOICES.md)
+  (free to use and share for LethalFantasy only; no selling, no use in other games or media, no AI
+  training or voice cloning). Translation keys (e.g. `AKIPO_DIALOGUE_...`) are used as file names only
   to identify which line a file belongs to.
 
 ## Licenses and credits

@@ -15,8 +15,8 @@ Nothing listed here is redistributed in this repository unless stated otherwise.
   characters) is the intellectual property of the game's author. It is **not** contained in this
   repository and **not** covered by its MIT license; the plugin only reads it from the player's own
   game copy at runtime.
-- Voice packs are spoken renditions derived from the author's text. They are distributed separately,
-  are not covered by the MIT license, and are only published with the author's permission.
+- Voice packs are spoken renditions derived from the author's text. They are distributed separately
+  with the author's permission, are not covered by the MIT license, and use `LICENSE-VOICES.md`.
 
 ## Playback plugin (`src/`)
 
