@@ -12,7 +12,7 @@ Tested against LethalFantasy beta 1.0.3 (English).
 - Memory Orb audiobook: the pages you read play `voices/en/STORY/<page key>.ogg` (narrator + character
   voices), stopping when you turn the page or close the orb (`[Story] ReadMemoryOrb`).
 - Voice packs have their own license (`LICENSE-VOICES.md`): free for LethalFantasy only, no selling, no use
-  in other games or media, no AI training or voice cloning.
+  in other games or media, cloning/AI training for personal use only.
 - `[Mouth] Sync` (default on): the speaker's mouth follows the voice loudness (closed in pauses,
   wider on loud syllables) until the voice ends, instead of the game's random mouth that stops when the
   text is shown; `ShapesPerSecond` sets how often the shape may change.

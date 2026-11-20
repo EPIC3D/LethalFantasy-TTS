@@ -19,6 +19,8 @@ The plugin's source code is licensed separately under the MIT License (`LICENSE`
   as part of a free LethalFantasy mod or mod pack), as long as you keep this license with them and credit
   "EPIC3D – LethalFantasy TTS".
 - Modify, replace or remix single files for your own use with LethalFantasy.
+- Clone the voices or train/fine-tune a voice model on the audio **for your own personal, non-commercial
+  use only** (for example to voice extra LethalFantasy lines for yourself).
 
 ## You may not
 
@@ -26,8 +28,8 @@ The plugin's source code is licensed separately under the MIT License (`LICENSE`
   otherwise used commercially (including "early access" or donation-gated releases of the audio itself).
 - Use the audio, or parts of it, **in any other game, mod for another game, project, video, stream asset,
   product or media** outside of playing or modding *LethalFantasy*.
-- Use the audio to **train, fine-tune or evaluate** voice, speech or other AI models, or to **clone or
-  imitate** the voices.
+- **Share, publish or sell** voice models, cloned voices or audio made with them (personal use only, see
+  above), or use them outside of LethalFantasy.
 - Claim the recordings as your own, or present them as official content of *LethalFantasy* or as
   endorsed by its author.
 

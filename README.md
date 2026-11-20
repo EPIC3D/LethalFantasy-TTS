@@ -68,8 +68,8 @@ Only English is supported for now.
 - Voice packs are spoken renditions of the author's lines and therefore derived from the author's
   work. They are published **with the game author's permission** as separate downloads, are **not**
   covered by the MIT license, and have their own license: [`LICENSE-VOICES.md`](LICENSE-VOICES.md)
-  (free to use and share for LethalFantasy only; no selling, no use in other games or media, no AI
-  training or voice cloning). Translation keys (e.g. `AKIPO_DIALOGUE_...`) are used as file names only
+  (free to use and share for LethalFantasy only; no selling, no use in other games or media, cloning or AI training
+  for personal use only). Translation keys (e.g. `AKIPO_DIALOGUE_...`) are used as file names only
   to identify which line a file belongs to.
 
 ## Licenses and credits
