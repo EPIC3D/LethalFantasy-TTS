@@ -55,6 +55,13 @@ Kokoro is installed separately; this repo only contains the small HTTP bridge (`
 
 Only English is supported for now.
 
+## Coming later: voice pack generator
+
+The voice packs were made with a separate offline **renderer** (scene-aware acting directions, local
+open TTS models, voice consistency and quality checks, game sound effects for the audiobook). It is not
+part of this repository yet; it will be published separately once it is ready, so that anyone with a
+suitable GPU can render their own voices for LethalFantasy.
+
 ## Build
 
 1. Copy `GamePath.props.example` to `GamePath.props` and set your game folder (with BepInEx 5 installed).
