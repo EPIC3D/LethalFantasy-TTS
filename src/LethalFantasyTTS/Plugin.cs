@@ -107,6 +107,23 @@ namespace LethalFantasyTTS
         }
     }
 
+    // EndDialogue clears the whole queue and closes the box at once – this is what "hold right click to
+    // skip" (and the end of a scripted scene) does, so the voice must stop too.
+    [HarmonyPatch(typeof(DialogueManager), nameof(DialogueManager.EndDialogue))]
+    internal static class DialogueEnd
+    {
+        [HarmonyPostfix]
+        private static void Postfix()
+        {
+            try
+            {
+                var p = SpeechPlayer.Instance;
+                if (p != null) p.Stop();
+            }
+            catch (System.Exception ex) { Plugin.Log.LogError("[TTS] EndDialogue: " + ex); }
+        }
+    }
+
     // Diagnostics only: the game may call this mid-sequence, so it does not stop speech (yet).
     [HarmonyPatch(typeof(DialogueManager), nameof(DialogueManager.InterruptCurrentDialogue), new System.Type[0])]
     internal static class DialogueInterrupt

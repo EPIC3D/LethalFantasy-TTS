@@ -527,6 +527,7 @@ namespace LethalFantasyTTS
         // speed (that either can't slow down or makes the text jump back), we set stateTime so the visible
         // characters follow the voice's progress – monotonic, independent of the player's text speed setting.
         private string _syncKey;
+        private float _closedFor;
         private float _syncStartShown, _syncShown;
 
         private void UpdateTextSync()
@@ -560,6 +561,15 @@ namespace LethalFantasyTTS
             dm.stateTime = (_syncShown + 0.5f) / rate;
         }
 
+        private static bool PlayerHoldsSkip()
+        {
+            var dm = DialogueManager.Instance;
+            if (dm == null || dm.skipInputGameObject == null || !dm.skipInputGameObject.activeInHierarchy) return false;
+            if (Input.GetMouseButton(1)) return true;
+            var input = KiriInputManager.Instance;
+            return input != null && input.GetKey(KiriKey.Interact);
+        }
+
         private void StopMouth()
         {
             _mouthDriving = false;
@@ -572,6 +582,20 @@ namespace LethalFantasyTTS
         private void LateUpdate()
         {
             var cfg = Plugin.Cfg;
+            // Safety net: with the text following the voice the dialogue stays open until the voice ends, so a
+            // voice that keeps playing after the dialogue closed means the player skipped it.
+            if (cfg.TextSyncToVoice.Value && _source.isPlaying && !_wantedNarration)
+            {
+                var dmx = DialogueManager.Instance;
+                if (dmx != null && !dmx.IsInProgress) { if ((_closedFor += Time.unscaledDeltaTime) > 0.3f) { Stop(); _closedFor = 0f; } }
+                else _closedFor = 0f;
+            }
+            // "Hold right click to skip": while the skip button is held, don't touch stateTime, so the game's
+            // skip progress bar can fill (resetting it made the bar restart forever). The voice keeps playing;
+            // if the skip completes, the dialogue closes and the safety net above stops the voice.
+            bool holdingSkip = PlayerHoldsSkip();
+            if (holdingSkip) _syncKey = null; // re-anchor the text sync if the player lets go early
+            if (!holdingSkip)
             try { UpdateTextSync(); }
             catch (Exception ex) { if (cfg.DebugLog.Value) Plugin.Log.LogWarning("[TTS] text sync: " + ex.Message); }
             try { UpdateMouth(); }
