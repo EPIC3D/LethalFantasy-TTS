@@ -11,6 +11,21 @@ with or endorsed by the game's creator. Get the game and support its author on P
 This repository contains **only the plugin source and the Kokoro integration script**. No game files,
 no BepInEx and no voice files are included.
 
+## How it works
+
+```mermaid
+flowchart LR
+    A[Game shows a dialogue line] --> B[Plugin hook<br/>DialogueManager.SetupNextString]
+    B --> C{Voice file for this key?<br/>voices/&lt;language&gt;/&lt;CHARACTER&gt;/KEY.ogg}
+    C -- no --> D{English fallback file?}
+    C -- yes --> F
+    D -- yes --> F
+    D -- no --> E{Live Kokoro TTS installed?}
+    E -- yes --> G[Local Kokoro server<br/>generates the audio]
+    E -- no --> H[Line stays silent]
+    G --> F[3D playback at the character's mouth<br/>size deepening, reverb, distance, indoor muffle]
+```
+
 ## Install
 
 1. Install **BepInEx 5** (x64, Mono) into the game folder:
