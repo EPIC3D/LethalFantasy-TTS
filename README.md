@@ -79,14 +79,14 @@ English only.
 – get the translated lines from the game's Weblate (<https://lethalfantasy-translation.com/projects/lethal-fantasy/#languages>),
 record or render them, and drop the files into `voices/<language>/`.
 
-## Coming later: voice pack generator
+## Make your own voice packs: Voice Crucible
 
-The voice packs were made with a separate offline **renderer** that runs local open TTS models and checks
-every line automatically (all words spoken, voice consistency, audio quality). The tech-demo packs use
-per-emotion voice settings only; the acting demo adds scene-aware acting directions per line, and the
-audiobook mixes in the game's sound effects. The renderer is not part of this repository yet; it will be
-published separately once it is ready, so that anyone with a suitable GPU can render their own voices
-for LethalFantasy.
+**[LethalFantasy Voice Crucible](https://github.com/EPIC3D/LethalFantasy-VoiceCrucible)** renders voice packs
+for this plugin on your own NVIDIA GPU – one PC or several on your local network. It reads the lines from
+your own game's export, speaks them with local open TTS models, checks every line automatically (all words
+spoken, same voice, clean audio) and writes them in exactly the folder layout this plugin plays. Default packs
+use Chatterbox; optional acting packs add per-line acting directions (Qwen3-TTS + Seed-VC). Beta, tested on
+Windows 11 with NVIDIA GPUs.
 
 ## Build
 
