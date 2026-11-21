@@ -1,4 +1,4 @@
-# LethalFantasy TTS
+# LethalFantasy Text to Speech
 
 A BepInEx 5 plugin for **LethalFantasy** that voices the in-game dialogue: it plays pre-generated
 voice files at the speaking character's mouth (3D, with size-based deepening, reverb, distance and
