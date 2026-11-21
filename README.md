@@ -29,6 +29,8 @@ flowchart LR
 
 ## Install
 
+Questions (male voices, silent lines, other languages, …): see the **[FAQ](docs/FAQ.md)**.
+
 1. Install **BepInEx 5** (x64, Mono) into the game folder:
    <https://github.com/BepInEx/BepInEx/releases> – start the game once so BepInEx creates its folders.
 2. Unzip the plugin release into the game folder – it creates
