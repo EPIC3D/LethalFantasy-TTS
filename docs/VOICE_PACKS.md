@@ -4,6 +4,20 @@ The plugin is only a player: it plays audio files it finds by name. Any voice pa
 TTS engine, voice-converted, or recorded by a real person – works as long as it follows this layout.
 You can also replace single lines of an existing pack.
 
+## Production at a glance
+
+```mermaid
+flowchart TD
+    A[Line list<br/>in-game export or Weblate] --> B[Filter<br/>skip narration and player answers]
+    B --> C[Text prep<br/>strip tags/symbols, resolve placeholders,<br/>name pronunciation, stutters]
+    C --> D[Render or record<br/>any TTS engine, voice conversion or a real voice]
+    D --> E{Quality check<br/>all words spoken, first word not clipped,<br/>same voice, clean audio}
+    E -- fail --> D
+    E -- pass --> F[Export .ogg<br/>KEY__he/she/they.ogg]
+    F --> G[voices/&lt;language&gt;/&lt;CHARACTER&gt;/]
+    G --> H[Test in game<br/>FilePitch, volume in lf-tts.cfg]
+```
+
 ## Folder layout
 
 ```
