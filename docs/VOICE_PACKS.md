@@ -68,8 +68,11 @@ Example conversion: `ffmpeg -i line.wav -ac 1 -c:a libvorbis -q:a 6 KEY.ogg`
 The game's text belongs to its author and is not distributed with this mod, but you can export the
 line list from **your own copy** of the game:
 
-1. In `BepInEx/config/lf-tts.cfg` set `[Developer] ExportLines = true` and start the game once.
-2. It writes to `<game>/BepInEx/LethalFantasyTTS/`:
+1. In `BepInEx/config/lf-tts.cfg` set `[Developer] ExportLines = true`, start the game and **play until
+   the first dialogue line appears** (e.g. start a game and let Akipo speak). The export runs at that
+   moment, not at the main menu; `BepInEx/LogOutput.log` then shows `[TTS] exported ...`.
+2. It writes to `<game>/BepInEx/LethalFantasyTTS/` (note: **not** the plugin folder
+   `<game>/BepInEx/plugins/LethalFantasyTTS/`, which holds the DLL and the voices):
    - `english_lines.jsonl` – every key and its English text (`{"key": ..., "text": ...}`; raw text
      with `{they}` placeholders and rich-text tags such as `<i>`),
    - `dialogue_events.jsonl` – for each dialogue line: key, speaking character, line type and the
