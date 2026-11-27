@@ -79,7 +79,7 @@ namespace LethalFantasyTTS
             UseServer = cfg.Bind("General", "UseServer", false,
                 "Ask the optional live Kokoro TTS server (server/tts_server.py) for lines missing from the voice pack.");
             ExportLines = cfg.Bind("Developer", "ExportLines", false,
-                "On game start, write all English lines to BepInEx/LethalFantasyTTS/english_lines.jsonl (for voice pack generation).");
+                "When the first dialogue line appears in game (not at the main menu), write all English lines and dialogue events to BepInEx/LFTTS-export/ (english_lines.jsonl, dialogue_events.jsonl) for voice pack generation.");
 
             ReadNormal = cfg.Bind("Lines", "ReadNormal", true, "Read normal dialogue lines.");
             ReadFollowup = cfg.Bind("Lines", "ReadFollowup", true, "Read follow-up replies of the second character.");

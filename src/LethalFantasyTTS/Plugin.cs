@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace LethalFantasyTTS
 {
-    [BepInPlugin(Guid, "Epicopy + Claude LethalFantasy TTS", "0.5.0")]
+    [BepInPlugin(Guid, "Epicopy + Claude LethalFantasy TTS", "0.5.1")]
     public class Plugin : BaseUnityPlugin
     {
         public const string Guid = "com.epicopy.claude.lethalfantasytts";
@@ -42,6 +42,10 @@ namespace LethalFantasyTTS
             _harmony = new Harmony(Guid);
             _harmony.PatchAll(typeof(Plugin).Assembly);
             Log.LogInfo("LethalFantasy TTS loaded; server " + Cfg.ServerUrl.Value);
+            if (Cfg.ExportLines.Value)
+                Log.LogInfo("[TTS] ExportLines is on: the export is written to "
+                    + System.IO.Path.Combine(Paths.BepInExRootPath, "LFTTS-export")
+                    + " when the first dialogue line appears in game.");
         }
 
         private static bool _exported;
@@ -53,7 +57,7 @@ namespace LethalFantasyTTS
             _exported = true;
             try
             {
-                string path = System.IO.Path.Combine(Paths.BepInExRootPath, "LethalFantasyTTS", "english_lines.jsonl");
+                string path = System.IO.Path.Combine(Paths.BepInExRootPath, "LFTTS-export", "english_lines.jsonl");
                 Log.LogInfo("[TTS] exported " + LineExporter.Export(path));
             }
             catch (System.Exception e)

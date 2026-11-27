@@ -58,4 +58,17 @@ audio is not itself covered by these software licenses, but they are credited he
 | [Resemblyzer](https://github.com/resemble-ai/Resemblyzer) | speaker-similarity check | Apache-2.0 |
 | [SpeechMOS / UTMOS](https://github.com/tarepan/SpeechMOS) | speech-quality estimate | MIT |
 
+### Where the voices come from
+
+No voice is based on a recording of a real person; every reference voice is synthetic:
+
+- **Akipo, Red, Blue** (tech-demo packs and the Twins in the audiobook): short reference clips rendered with
+  [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) (Apache-2.0) voice blends (Akipo
+  `af_bella`+`af_jessica`, Red `af_bella`+`af_sarah`, Blue `af_bella`+`bf_alice`), then cloned by Chatterbox
+  for every line. They were meant as a **temporary starting point** and may be replaced in later packs.
+- **Akipo acting demo:** reference voice designed and cloned with Qwen3-TTS, acting by Qwen3-TTS, converted
+  to that reference with Seed-VC.
+- **Audiobook narrator and friend:** voices designed from a text description with Qwen3-TTS VoiceDesign,
+  then cloned by Chatterbox.
+
 Please report missing or incorrect attributions via an issue.

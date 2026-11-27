@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.5.1 – 2026-11-27 (bug fixes collected after 0.5.0)
+
+Tested against LethalFantasy beta 1.0.3.
+
+- Docs/config: `ExportLines` writes the export when the **first dialogue line appears in game**, not at
+  the main menu (the docs said "start the game once"); the log says where and when at startup.
+- The export folder is now `BepInEx/LFTTS-export/` (was `BepInEx/LethalFantasyTTS/`, easy to confuse with
+  the plugin folder `BepInEx/plugins/LethalFantasyTTS/`).
+- Mouth sync: when the other Twin answers right away (follow-up line), her mouth moves now – before, the
+  first speaker's mouth kept moving to the second voice.
+
+- Voices in every game language: the plugin looks in `voices/<language>/` (`hu`, `ja`, `zh`, `es`, `fr`,
+  `pt-BR`, `ru`) first and falls back to the English pack, so the characters speak (in English) whatever
+  language the game shows. Packs for other languages can be added per folder later. A language the game
+  adds in a later version works too: its folder is the game's language name (e.g. `voices/German/`).
+- Docs: `THIRD_PARTY_NOTICES.md` lists where every voice comes from (Kokoro reference clips for Akipo, Red
+  and Blue – a temporary starting point; Qwen3-TTS for the acting demo and the audiobook narrators).
+- Text sync: Japanese and Chinese text is revealed at the game's own (slower) rate, so the text no longer
+  stops part-way and jumps to the end when the voice finishes.
+
 ## 0.5.0 – first release (pre-release): voice pack player, text follows the voice
 
 Tested against LethalFantasy beta 1.0.3 (English).
@@ -7,9 +27,6 @@ Tested against LethalFantasy beta 1.0.3 (English).
 
 - Hold-right-click skip works with voices: holding the skip button no longer resets the skip bar, and
   the voice stops when a dialogue is skipped or closed (`EndDialogue`, or the box closed while still speaking).
-- Voices in every game language: the plugin looks in `voices/<language>/` (`hu`, `ja`, `zh`, `es`, `fr`,
-  `pt-BR`, `ru`) first and falls back to the English pack, so the characters speak (in English) whatever
-  language the game shows. Packs for other languages can be added per folder later.
 - Memory Orb audiobook: the pages you read play `voices/en/STORY/<page key>.ogg` (narrator + character
   voices), stopping when you turn the page or close the orb (`[Story] ReadMemoryOrb`).
 - Voice packs have their own license (`LICENSE-VOICES.md`): free for LethalFantasy only, no selling, no use

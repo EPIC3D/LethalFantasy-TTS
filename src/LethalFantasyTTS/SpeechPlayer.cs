@@ -266,12 +266,14 @@ namespace LethalFantasyTTS
                 ? Path.Combine(Path.GetDirectoryName(typeof(Plugin).Assembly.Location), "voices") : dir;
         }
 
-        /// <summary>Folder of the game language (ISO code), then "en".</summary>
+        /// <summary>Folder of the game language (ISO code), then "en". A language added to the game later
+        /// (unknown to this plugin version) uses the game's own language name as folder, e.g. "German".</summary>
         private static IEnumerable<string> LanguageFolders()
         {
             string code;
             switch (Localization.SelectedLanguage)
             {
+                case LocalizationLanguage.English: code = "en"; break;
                 case LocalizationLanguage.Japanese: code = "ja"; break;
                 case LocalizationLanguage.Chinese: code = "zh"; break;
                 case LocalizationLanguage.Spanish: code = "es"; break;
@@ -279,7 +281,7 @@ namespace LethalFantasyTTS
                 case LocalizationLanguage.PortugueseBrazil: code = "pt-BR"; break;
                 case LocalizationLanguage.Russian: code = "ru"; break;
                 case LocalizationLanguage.Hungarian: code = "hu"; break;
-                default: code = "en"; break;
+                default: code = Localization.SelectedLanguage.ToString(); break;
             }
             if (code != "en") yield return code;
             yield return "en";
@@ -524,6 +526,12 @@ namespace LethalFantasyTTS
                 if (_mouthDriving) StopMouth();
                 return;
             }
+            if (_mouthDriving && _mouthMgr != _speaker.expressionManager)
+            {
+                // A new speaker took over (e.g. the other Twin's follow-up): close the previous mouth first.
+                if (_mouthMgr != null) _mouthMgr.mouthOverride.ClearDialogueMovement();
+                _mouthDriving = false;
+            }
             if (!_mouthDriving)
             {
                 _mouthDriving = true;
@@ -571,6 +579,8 @@ namespace LethalFantasyTTS
         {
             var dm = DialogueManager.Instance;
             if (dm == null || _mouthMgr == null || string.IsNullOrEmpty(_wantedKey)) return false;
+            // Only while the mouth we drove belongs to the speaker of the shown line.
+            if (_speaker == null || _speaker.expressionManager != _mouthMgr) return false;
             return dm.IsInProgress && dm.lastExpression.text == _wantedKey;
         }
 
@@ -588,7 +598,11 @@ namespace LethalFantasyTTS
             if (dm == null || !Plugin.Cfg.TextSyncToVoice.Value || _wantedNarration || string.IsNullOrEmpty(_wantedKey) ||
                 dm.lastExpression.text != _wantedKey || dm.state != DialogueManager.DialogueState.Hold || _source.clip == null)
                 return;
-            float rate = Mathf.Max(0.01f, dm.charSpeed * DialogueManager.TEXT_SPEED_SCALER);
+            // Same reveal rate as the game (DialogueManager.Update): slower for Japanese and Chinese text.
+            float rate = dm.charSpeed * DialogueManager.TEXT_SPEED_SCALER;
+            if (Localization.SelectedLanguage == LocalizationLanguage.Japanese) rate *= 0.75f;
+            else if (Localization.SelectedLanguage == LocalizationLanguage.Chinese) rate *= 0.5f;
+            rate = Mathf.Max(0.01f, rate);
             if (_syncKey != _wantedKey)
             {
                 if (!_source.isPlaying) return; // voice not started yet: the game's own pace until it does

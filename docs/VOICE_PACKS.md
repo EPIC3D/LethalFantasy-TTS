@@ -71,7 +71,7 @@ line list from **your own copy** of the game:
 1. In `BepInEx/config/lf-tts.cfg` set `[Developer] ExportLines = true`, start the game and **play until
    the first dialogue line appears** (e.g. start a game and let Akipo speak). The export runs at that
    moment, not at the main menu; `BepInEx/LogOutput.log` then shows `[TTS] exported ...`.
-2. It writes to `<game>/BepInEx/LethalFantasyTTS/` (note: **not** the plugin folder
+2. It writes to `<game>/BepInEx/LFTTS-export/` (note: **not** the plugin folder
    `<game>/BepInEx/plugins/LethalFantasyTTS/`, which holds the DLL and the voices):
    - `english_lines.jsonl` – every key and its English text (`{"key": ..., "text": ...}`; raw text
      with `{they}` placeholders and rich-text tags such as `<i>`),
@@ -96,6 +96,7 @@ line by line, so a new language pack can start small and grow.
 | French | `voices/fr/` |
 | Portuguese (Brazil) | `voices/pt-BR/` |
 | Russian | `voices/ru/` |
+| a language added to the game later | the game's name for it, e.g. `voices/German/` |
 
 Inside it the layout is the same as for English: `AKIPO/`, `RED/`, `BLUE/` (and `STORY/` for the Memory
 Orb audiobook), files named `<KEY>.ogg`, e.g. `voices/hu/AKIPO/AKIPO_DIALOGUE_IDLE_CRAFTING_HINT_1_1.ogg`.
