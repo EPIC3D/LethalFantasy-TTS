@@ -25,7 +25,6 @@ flowchart LR
     E -- no --> H[Line stays silent]
     G --> F[3D playback at the character's mouth<br/>size deepening, reverb, distance, indoor muffle]
 ```
-(Fallback will be added in an update later)
 
 ## Install
 
